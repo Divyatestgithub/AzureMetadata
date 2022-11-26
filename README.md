@@ -12,7 +12,7 @@ The default output for all instance metadata is of json format(content type Appl
 
 ```
 
-curl -H Metadata:true http://169.254.169.254/metadata/instance/?api-version=2021-02-01\&format=text
+curl -s -H Metadata:true --noproxy "*" "http://169.254.169.254/metadata/instance?api-version=2017-08-01&format=text"
 
 ```
 
@@ -43,7 +43,7 @@ If there is a data element not found or malformed requests Metadata Service retu
 # Retrieving the network information
 
 ```
-curl -H Metadata:true http://169.254.169.254/metadata/instance/network?api-version=2021-02-01
+curl -s -H Metadata:true --noproxy "*" "http://169.254.169.254/metadata/instance/network?api-version=2017-08-01" | jq
 
 {
   "interface": [
@@ -83,7 +83,7 @@ curl -H Metadata:true http://169.254.169.254/metadata/instance/network?api-versi
 # Retrieving public IP address
 
 ```
-curl -H Metadata:true "http://169.254.169.254/metadata/instance/network/interface/0/ipv4/ipaddress/0/publicip?api-version=2021-02-01&format=text"
+curl -H Metadata:true --noproxy "*" "http://169.254.169.254/metadata/instance/network/interface/0/ipv4/ipaddress/0/publicip?api-version=2021-02-01&format=text"
 
 ```
 
@@ -91,7 +91,7 @@ curl -H Metadata:true "http://169.254.169.254/metadata/instance/network/interfac
 
 ```
 
-curl -H Metadata:true http://169.254.169.254/metadata/instance?api-version=2021-02-01
+$ curl -s -H Metadata:true --noproxy "*" "http://169.254.169.254/metadata/instance?api-version=2021-02-01" | jq
 
 
 
