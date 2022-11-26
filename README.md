@@ -4,7 +4,7 @@
 
 Instance metadata is available for running VMs created/managed using Azure Resource Manager. Access all data categories for an instance use the following URI
 ```
-$ curl -s -H Metadata:true --noproxy "*" "http://169.254.169.254/metadata/instance?api-version=2021-02-01 | jq"
+$ curl -s -H Metadata:true --noproxy "*" "http://169.254.169.254/metadata/instance?api-version=2021-02-01" | jq
 
 ```
 
