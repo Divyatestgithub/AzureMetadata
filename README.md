@@ -31,7 +31,7 @@ Instance metadata endpoint is accessible only from within the running instance o
 If there is a data element not found or malformed requests Metadata Service returns standard HTTP Error, following are the few examples of return codes
 
 |HTTP Return Code| Reason|
-|:---------------:|--------:|
+|:---------------|:--------|
 |200|OK|
 |400|Bad Request, missing header, pass -H Metadata:true|
 |404|Not Found, requested element does’t exist|
