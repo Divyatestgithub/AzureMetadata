@@ -30,13 +30,13 @@ Instance metadata endpoint is accessible only from within the running instance o
 
 If there is a data element not found or malformed requests Metadata Service returns standard HTTP Error, following are the few examples of return codes
 
-|HTTP Return Code|	|Reason|
+|HTTP Return Code| Reason|
 |:---------------:|--------:|
-|200|	|OK|
-|400|	|Bad Request, missing header, pass -H Metadata:true|
-|404|	|Not Found, requested element does’t exist|
-|405|	|Method not supported|
-|429|	|Too many requests, currently we only support maximum of 5 queries per second|
+|200|OK|
+|400|Bad Request, missing header, pass -H Metadata:true|
+|404|Not Found, requested element does’t exist|
+|405|Method not supported|
+|429|Too many requests, currently we only support maximum of 5 queries per second|
 
 # Examples
 
