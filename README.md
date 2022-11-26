@@ -26,7 +26,8 @@ Instance metadata service is versioned. Versions are mandatory and the current  
 
 Instance metadata endpoint is accessible only from within the running instance on a non-routable 169.254.169.254 IP address. We also require requests to contain Metadata:true header being sent to ensure that the actual request was directly intended and not a part of unintentional redirection.
 
-Error
+# Error
+
 If there is a data element not found or malformed requests Metadata Service returns standard HTTP Error, following are the few examples of return codes
 
 |HTTP Return Code|	|Reason|
@@ -142,4 +143,4 @@ curl -H Metadata:true http://169.254.169.254/metadata/instance?api-version=2021-
       ```
     ]
   }
-}~~~
+}
