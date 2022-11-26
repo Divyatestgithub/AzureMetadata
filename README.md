@@ -1,43 +1,41 @@
 # AzureMetadata
-Retrieving instance metadata
+
+# Retrieving instance metadata
+
 Instance metadata is available for running VMs created/managed using Azure Resource Manager. Access all data categories for an instance use the following URI
 
-$ curl -H Metadata:true http://169.254.169.254/metadata/instance?api-version=2017-03-01
-The default output for all instance metadata is of json format(content type Application/JSON)
+~~~$ curl -s -H Metadata:true --noproxy "*" "http://169.254.169.254/metadata/instance?api-version=2021-02-01"~~~
 
-Usage Examples
-Following are set of examples and usage semantics for instance metadata service
+The default output for all instance metadata is of json format(content type Application/JSON).If you want to have it in the text format use the below URI
 
-Versioning
-Instance metadata service is versioned. Versions are mandatory and the current preview version is 2017-03-01.
+~~~curl -H Metadata:true http://169.254.169.254/metadata/instance/?api-version=2021-02-01\&format=text~~~
 
-curl -H Metadata:true http://169.254.169.254/metadata/instance?api-version=2017-03-01
-As we add newer versions, earlier version is made available in case your scripts has dependencies on data formats. Note, current preview version may not be available once the service is generally available
 
-Data output
-By default instance metadata returns data in JSON (content type=application/json).Different node elements can return data in different default format as applicable, following table is a quick reference for data formats
+# Versioning
 
-Element	default data format	Other formats
-/instance	Json	text
-/scheduledevents	Json	None
-For text format use format=text in the request URL, for example
+Instance metadata service is versioned. Versions are mandatory and the current  version is 2021-02-01.
 
-curl -H Metadata:true http://169.254.169.254/metadata/instance?api-version=2017-03-01\&format=text
-Security
-Instance metadata endpoint is accessible only from within the running instance on a non-routable 169.254.169.254 IP address. In addition, any request with X-Forwarded-For header is rejected by the metadata service. We also require requests to contain Metadata:true header being sent to ensure that the actual request was directly intended and not a part of unintentional redirection.
+
+# Security
+
+Instance metadata endpoint is accessible only from within the running instance on a non-routable 169.254.169.254 IP address. We also require requests to contain Metadata:true header being sent to ensure that the actual request was directly intended and not a part of unintentional redirection.
 
 Error
 If there is a data element not found or malformed requests Metadata Service returns standard HTTP Error, following are the few examples of return codes
 
-HTTP Return Code	Reason
-200	OK
-400	Bad Request, missing header, pass -H Metadata:true
-404	Not Found, requested element does’t exist
-405	Method not supported
-429	Too many requests, currently we only support maximum of 5 queries per second
-Examples
-Retrieving the network information
-curl -H Metadata:true http://169.254.169.254/metadata/instance/network?api-version=2017-03-01
+|HTTP Return Code|	|Reason|
+|:---------------:|--------:|
+|200|	|OK|
+|400|	|Bad Request, missing header, pass -H Metadata:true|
+|404|	|Not Found, requested element does’t exist|
+|405|	|Method not supported|
+|429|	|Too many requests, currently we only support maximum of 5 queries per second|
+
+# Examples
+
+# Retrieving the network information
+
+~~~curl -H Metadata:true http://169.254.169.254/metadata/instance/network?api-version=2021-02-01
 
 {
   "interface": [
@@ -70,11 +68,15 @@ curl -H Metadata:true http://169.254.169.254/metadata/instance/network?api-versi
       "mac": "000D3A00FA89"
     }
   ]
-}
-Retrieving public IP address
-curl -H Metadata:true "http://169.254.169.254/metadata/instance/network/interface/0/ipv4/ipaddress/0/publicip?api-version=2017-03-01&format=text"
-Retrieving all instance metadata
-curl -H Metadata:true http://169.254.169.254/metadata/instance?api-version=2017-03-01
+}~~~
+
+# Retrieving public IP address
+
+~~~curl -H Metadata:true "http://169.254.169.254/metadata/instance/network/interface/0/ipv4/ipaddress/0/publicip?api-version=2021-02-01&format=text"~~~
+
+# Retrieving all instance metadata
+
+~~~curl -H Metadata:true http://169.254.169.254/metadata/instance?api-version=2021-02-01
 
 {
 "compute": {
@@ -122,28 +124,4 @@ curl -H Metadata:true http://169.254.169.254/metadata/instance?api-version=2017-
       }
     ]
   }
-}
-Instance Metadata data categories
-Following table has a list of all data categories available via Instance Metadata
-
-Data	Description
-location	Azure Region the VM is running
-name	Name of the VM
-offer	Offer information for the VM image, these values are present only for images deployed from Azure image gallery
-publisher	Publisher of the VM image
-sku	Specific SKU for the VM image
-version	Version of the VM Image
-osType	Linux or Windows
-platformUpdateDomain	Update domain the VM is running in.
-platformFaultDomain	Fault domain the VM is running in.
-vmId	Unique identifier for the VM, more info here
-vmSize	VM size
-ipv4/Ipaddress	Local IP address of the VM
-ipv4/publicip	Public IP address for the Instance
-subnet/address	Address for subnet
-subnet/dnsservers/ipaddress1	Primary DNS server
-subnet/dnsservers/ipaddress2	Secondary DNS server
-subnet/prefix	Subnet prefix, example 24
-ipv6/ipaddress	IPv6 address for the VM
-mac	VM mac address
-scheduledevents	see scheduledevents
+}~~~
